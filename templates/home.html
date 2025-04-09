@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Recipe Generator</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <style>
+        body {
+            background: #f9f9f9;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .card {
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            border-radius: 15px;
+        }
+        textarea {
+            resize: none;
+        }
+    </style>
+    
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="text-center mb-4">
+                <h2>🥗 AI Recipe Generator</h2>
+                <p class="text-muted">Enter ingredients and let AI cook something creative!</p>
+            </div>
+            <form method="post" class="card p-4">
+                {% csrf_token %}
+                <div class="form-group mb-3">
+                    <label for="ingredients">Your Ingredients:</label>
+                    <textarea name="ingredients" id="ingredients" rows="3" class="form-control" placeholder="e.g. tomato, rice, garlic...">{{ request.POST.ingredients }}</textarea>
+                </div>
+                <button type="submit" class="btn btn-success w-100">Generate Recipe 🍳</button>
+            </form>
+
+            {% if recipe %}
+            <div class="card mt-4 p-4 bg-light">
+                <h5 class="mb-3">👨‍🍳 Your AI-Powered Recipe</h5>
+                <pre class="bg-white p-3 rounded border">{{ recipe }}</pre>
+                <div class="d-flex justify-content-end">
+                    
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<footer class="text-center mt-5 text-muted">
+    <hr style="width: 100%;">
+    <p class="mb-0">Created by <strong>Aditya Patil</strong></p>
+    <small>&copy; {{ year|default:"2025" }}</small>
+</footer>
+
+</body>
+</html>
